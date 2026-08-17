@@ -369,6 +369,7 @@ public final class GameCenterService: ObservableObject {
             return
         }
         
+        #if canImport(UIKit)
         let gcViewController = GKGameCenterViewController(state: .default)
         
         // Получаем topmost ViewController для презентации
@@ -380,5 +381,6 @@ public final class GameCenterService: ObservableObject {
             }
             topVC.present(gcViewController, animated: true)
         }
+        #endif
     }
 }

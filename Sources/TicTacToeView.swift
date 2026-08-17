@@ -51,52 +51,72 @@ private enum NeonTheme {
     }
 }
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
 // MARK: - Менеджер тактильного отклика
 /// Централизованный Haptic Feedback (iOS)
 struct HapticManager {
     static let shared = HapticManager()
     
+    #if canImport(UIKit)
     private let lightImpact  = UIImpactFeedbackGenerator(style: .light)
     private let mediumImpact = UIImpactFeedbackGenerator(style: .medium)
     private let rigidImpact  = UIImpactFeedbackGenerator(style: .rigid)
     private let notification = UINotificationFeedbackGenerator()
+    #endif
     
     /// Подготовка генераторов к работе (снижает задержку первого отклика)
     func prepare() {
+        #if canImport(UIKit)
         lightImpact.prepare()
         mediumImpact.prepare()
         rigidImpact.prepare()
         notification.prepare()
+        #endif
     }
     
     /// Лёгкий щелчок — переключение UI элементов
     func tapLight() {
+        #if canImport(UIKit)
         lightImpact.impactOccurred()
+        #endif
     }
     
     /// Средний удар — ход игрока
     func tapMedium() {
+        #if canImport(UIKit)
         mediumImpact.impactOccurred()
+        #endif
     }
     
     /// Жёсткий удар — ход ИИ
     func tapRigid() {
+        #if canImport(UIKit)
         rigidImpact.impactOccurred()
+        #endif
     }
     
     /// Уведомление об успехе (победа)
     func notifySuccess() {
+        #if canImport(UIKit)
         notification.notificationOccurred(.success)
+        #endif
     }
     
     /// Уведомление о предупреждении (ничья)
     func notifyWarning() {
+        #if canImport(UIKit)
         notification.notificationOccurred(.warning)
+        #endif
     }
     
     /// Уведомление об ошибке
     func notifyError() {
+        #if canImport(UIKit)
         notification.notificationOccurred(.error)
+        #endif
     }
 }
 

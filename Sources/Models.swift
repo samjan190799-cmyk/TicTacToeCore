@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - Игрок
 /// Перечисление игроков в Крестики-Нолики
-public enum Player: String, CaseIterable, Identifiable, Sendable {
+public enum Player: String, Codable, CaseIterable, Identifiable, Sendable {
     case x = "X"
     case o = "O"
     

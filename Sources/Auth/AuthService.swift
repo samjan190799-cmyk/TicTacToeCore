@@ -275,10 +275,7 @@ public final class AuthService: NSObject, ObservableObject {
         currentProfile.applyMatchResult(result)
         saveProfile()
         
-        Self.logger.info(
-            "Матч записан: \(result.rawValue) | MMR: \(self.currentProfile.mmr) | " +
-            "W/L/D: \(self.currentProfile.stats.wins)/\(self.currentProfile.stats.losses)/\(self.currentProfile.stats.draws)"
-        )
+        Self.logger.info("Матч записан: \(result.rawValue, privacy: .public) | MMR: \(self.currentProfile.mmr) | W/L/D: \(self.currentProfile.stats.wins)/\(self.currentProfile.stats.losses)/\(self.currentProfile.stats.draws)")
         
         delegate?.authService(self, didUpdateProfile: currentProfile)
     }
