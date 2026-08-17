@@ -22,6 +22,11 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 
+# Binary / IPA
+*.ipa
+*.app
+Payload/
+
 # Temporary / OS
 *.swp
 *~
