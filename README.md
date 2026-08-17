@@ -61,6 +61,18 @@ TicTacToeCore/
 
 ---
 
+## 📲 Установка .IPA на iPhone / iPad
+
+1. Перейдите во вкладку **[Releases](https://github.com/samjan190799-cmyk/TicTacToeCore/releases)** репозитория.
+2. Скачайте файл **`TicTacToe.ipa`**.
+3. Установите на устройство любым удобным способом:
+   - **AltStore / AltServer**
+   - **Sideloadly** (macOS / Windows)
+   - **TrollStore** (для совместимых версий iOS)
+   - **Scarlet / GBox / Esign**
+
+---
+
 ## 🛠 Требования
 
 - **iOS 17.0+** / **macOS 14.0+**

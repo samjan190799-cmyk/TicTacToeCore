@@ -1,0 +1,56 @@
+name: Build IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Package IPA
+    runs-on: macos-14
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Build iOS Application (.app)
+        run: |
+          xcodebuild -project TicTacToe.xcodeproj \
+            -scheme TicTacToe \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Package .IPA
+        run: |
+          mkdir -p Payload
+          cp -r build/Build/Products/Release-iphoneos/TicTacToe.app Payload/
+          zip -r TicTacToe.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TicTacToe-iOS-IPA
+          path: TicTacToe.ipa
+          retention-days: 30
+
+      - name: Create or Update GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v1.0.0 TicTacToe.ipa \
+            --title "TicTacToe iOS v1.0.0 (IPA)" \
+            --notes "Автоматически собранный .ipa файл приложения «Крестики-Нолики» для установки на iPhone/iPad через AltStore, Sideloadly, TrollStore или Scarlet." \
+            || gh release upload v1.0.0 TicTacToe.ipa --clobber
